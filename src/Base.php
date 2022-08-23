@@ -4,9 +4,13 @@ namespace ZapMeSdk;
 
 use Exception;
 use ZapMeSdk\Actions\Messages\GetMessage;
+use ZapMeSdk\Actions\Contacts\GetContact;
 use ZapMeSdk\Actions\Messages\SendMessage;
 use ZapMeSdk\Actions\Messages\GetMessages;
+use ZapMeSdk\Actions\Contacts\GetContacts;
 use ZapMeSdk\Actions\Account\AccountStatus;
+use ZapMeSdk\Actions\Contacts\CreateContact;
+use ZapMeSdk\Actions\Contacts\DestroyContact;
 
 class Base
 {
@@ -15,21 +19,21 @@ class Base
      *
      * @var string
      */
-    private $url = 'https://api.zapme.com.br';
+    private string $url = 'https://api.zapme.com.br';
 
     /**
      * ZapMe API.
      *
      * @var string|null
      */
-    private $api = null;
+    private ?string $api = null;
 
     /**
      * ZapMe Secret Key.
      *
      * @var string|null
      */
-    private $secret = null;
+    private ?string $secret = null;
 
     /**
      * Set the ZapMe URL dynamically.
@@ -147,6 +151,74 @@ class Base
     public function getMessage(int $id)
     {
         return (new GetMessage(
+            $this->url,
+            $this->api,
+            $this->secret)
+        )($id);
+    }
+
+    /**
+     * Create a contact.
+     *
+     * @param  string  $name
+     * @param  string  $phone
+     * @param $group
+     * @return mixed
+     * @throws Exception
+     */
+    public function createContact(string $name, string $phone, string $status = 'active', $group = null)
+    {
+        return (new CreateContact(
+            $this->url,
+            $this->api,
+            $this->secret)
+        )($name, $phone, $status, $group);
+    }
+
+    /**
+     * Get contacts.
+     *
+     * @param  bool  $paginate
+     * @param  int  $page
+     * @param  int  $quantity
+     * @return mixed
+     * @throws Exception
+     */
+    public function getContacts(bool $paginate = false, int $page = 1, int $quantity = 10)
+    {
+        return (new GetContacts(
+            $this->url,
+            $this->api,
+            $this->secret)
+        )($paginate, $page, $quantity);
+    }
+
+    /**
+     * Get single contact..
+     *
+     * @param  int  $id
+     * @return mixed
+     * @throws Exception
+     */
+    public function getContact(int $id)
+    {
+        return (new GetContact(
+            $this->url,
+            $this->api,
+            $this->secret)
+        )($id);
+    }
+
+    /**
+     * Destroy a contact.
+     *
+     * @param  int  $id
+     * @return mixed
+     * @throws Exception
+     */
+    public function destroyContact(int $id)
+    {
+        return (new DestroyContact(
             $this->url,
             $this->api,
             $this->secret)
