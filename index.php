@@ -9,15 +9,15 @@ ini_set('display_errors', 1);
 
 require 'vendor/autoload.php';
 
-use ZapMeSdk\Base;
+use ZapMeSdk\Base as ZapMeSdk;
 
-$base = (new Base())
+$base = (new ZapMeSdk())
     ->withApi('YOUR_API_HERE')
     ->withSecret('YOUR_SECRET_KEY_HERE');
 
-/** Examples of usage */
-
-// Send a message.
+/**
+ * Example of sending a message...
+ */
 
 $result = $base->sendMessage('PHONE', 'MESSAGE');
 

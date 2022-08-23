@@ -1,12 +1,12 @@
 <?php
 
-namespace ZapMeSdk\Actions\Account;
+namespace ZapMeSdk\Actions\Contacts;
 
 use Exception;
 use ZapMeSdk\Traits\PerformRequest;
 use ZapMeSdk\Traits\ShareableConstructor;
 
-class AccountStatus
+class DestroyContact
 {
     use PerformRequest;
     use ShareableConstructor;
@@ -14,18 +14,21 @@ class AccountStatus
     /**
      * Path related with the action.
      *
+     * @param  int  $id
      * @return string
      */
-    public function path(): string
+    public function path(int $id): string
     {
-        return '/status';
+        return sprintf('/contacts/%s', $id);
     }
 
     /**
      * @throws Exception
      */
-    public function __invoke()
+    public function __invoke(int $id)
     {
-        return $this->request($this->path());
+        $this->method('DELETE');
+
+        return $this->request($this->path($id));
     }
 }

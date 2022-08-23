@@ -27,8 +27,6 @@ class SendMessage
     public function __invoke(string $phone, string $message, array $attachment = [])
     {
         $data = [
-            'api'     => $this->api,
-            'secret'  => $this->secret,
             'phone'   => $phone,
             'message' => $message,
         ];
