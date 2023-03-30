@@ -2,7 +2,6 @@
 
 namespace ZapMeSdk;
 
-use Exception;
 use ZapMeSdk\Actions\Messages\GetMessage;
 use ZapMeSdk\Actions\Contacts\GetContact;
 use ZapMeSdk\Actions\Messages\SendMessage;

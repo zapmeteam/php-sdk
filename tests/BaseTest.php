@@ -1,7 +1,7 @@
 <?php
 
 use Dotenv\Dotenv;
-use ZapMeSdk\Base;
+use ZapMeSdk\Base as ZapMeSdk;
 use PHPUnit\Framework\TestCase;
 
 class BaseTest extends TestCase
@@ -20,7 +20,7 @@ class BaseTest extends TestCase
             $this->markTestSkipped('Test environment variables are not correctly set.');
         }
 
-        $this->base = (new Base())
+        $this->base = (new ZapMeSdk())
             ->toUrl($url)
             ->withApi($api)
             ->withSecret($secret);
