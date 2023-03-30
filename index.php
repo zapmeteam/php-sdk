@@ -11,8 +11,8 @@ require 'vendor/autoload.php';
 use ZapMeSdk\Base as ZapMeSdk;
 
 $base = (new ZapMeSdk())
-    ->withApi('YOUR_API_KEY')
-    ->withSecret('YOUR_SECRET_KEY');
+    ->withApi('YOUR_API_HERE')
+    ->withSecret('YOUR_SECRET_KEY_HERE');
 
 /**
  * Example of sending a message:
