@@ -15,6 +15,7 @@ class DestroyContact
      * Path related with the action.
      *
      * @param  int  $id
+     *
      * @return string
      */
     public function path(int $id): string
@@ -23,9 +24,13 @@ class DestroyContact
     }
 
     /**
-     * @throws Exception
+     * Send the request to the ZapMe.
+     *
+     * @param  int  $id
+     *
+     * @return array
      */
-    public function __invoke(int $id)
+    public function __invoke(int $id): array
     {
         $this->method('DELETE');
 

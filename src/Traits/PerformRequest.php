@@ -6,8 +6,6 @@ use Exception;
 
 trait PerformRequest
 {
-    use Validate;
-
     /**
      * The default request method.
      *
@@ -21,24 +19,17 @@ trait PerformRequest
      * @param  string  $method
      * @return void
      */
-    private function method(string $method = 'POST')
+    private function method(string $method = 'POST'): void
     {
         $this->method = $method;
     }
 
     /**
-     * Make the request to the ZapMe Api.
-     *
-     * @throws Exception
+     * Send the request to the ZapMe.
      */
-    private function request(string $path, array $data = [])
+    private function request(string $path, array $data = []): array
     {
-        $this->validate();
-
-        $data += [
-            'api'    => $this->api,
-            'secret' => $this->secret,
-        ];
+        $data += ['api'=> $this->api, 'secret' => $this->secret];
 
         $curl = curl_init($this->url . $path);
 

@@ -22,9 +22,16 @@ class CreateContact
     }
 
     /**
-     * @throws Exception
+     * Send the request to the ZapMe.
+     *
+     * @param  string  $name
+     * @param  string  $phone
+     * @param  string  $status
+     * @param mixed $group
+     *
+     * @return array
      */
-    public function __invoke(string $name, string $phone, string $status = 'active', $group = null)
+    public function __invoke(string $name, string $phone, string $status = 'active', $group = null): array
     {
         $data = [
             'name'   => $name,

@@ -3,7 +3,7 @@
     "description": "ZapMe PHP SDK",
     "type": "library",
     "require": {
-        "php": ">=7.4",
+        "php": "^7.4 || ^8.0",
         "ext-json": "*",
         "ext-curl": "*"
     },

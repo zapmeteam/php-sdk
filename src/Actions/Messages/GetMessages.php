@@ -30,10 +30,17 @@ class GetMessages
         return $url;
     }
 
+
     /**
-     * @throws Exception
+     * Send the request to the ZapMe.
+     *
+     * @param  bool  $paginate
+     * @param  int  $page
+     * @param  int  $quantity
+     *
+     * @return array
      */
-    public function __invoke(bool $paginate = false, int $page = 1, int $quantity = 10)
+    public function __invoke(bool $paginate = false, int $page = 1, int $quantity = 10): array
     {
         $this->method('GET');
         

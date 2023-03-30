@@ -91,10 +91,9 @@ class Base
     /**
      * Get the user account data.
      *
-     * @return mixed
-     * @throws Exception
+     * @return array
      */
-    public function accountStatus()
+    public function accountStatus(): array
     {
         return (new AccountStatus(
             $this->url,
@@ -110,10 +109,9 @@ class Base
      * @param  string  $message
      * @param  array  $attachment
      *
-     * @return mixed
-     * @throws Exception
+     * @return array
      */
-    public function sendMessage(string $phone, string $message, array $attachment = [])
+    public function sendMessage(string $phone, string $message, array $attachment = []): array
     {
         return (new SendMessage(
             $this->url,
@@ -129,10 +127,9 @@ class Base
      * @param  int  $page
      * @param  int  $quantity
      *
-     * @return mixed
-     * @throws Exception
+     * @return array
      */
-    public function getMessages(bool $paginate = false, int $page = 1, int $quantity = 10)
+    public function getMessages(bool $paginate = false, int $page = 1, int $quantity = 10): array
     {
         return (new GetMessages(
             $this->url,
@@ -145,10 +142,10 @@ class Base
      * Get single message.
      *
      * @param  int  $id
-     * @return mixed
-     * @throws Exception
+     *
+     * @return array
      */
-    public function getMessage(int $id)
+    public function getMessage(int $id): array
     {
         return (new GetMessage(
             $this->url,
@@ -162,11 +159,12 @@ class Base
      *
      * @param  string  $name
      * @param  string  $phone
-     * @param $group
-     * @return mixed
-     * @throws Exception
+     * @param  string  $status
+     * @param  mixed  $group
+     *
+     * @return array
      */
-    public function createContact(string $name, string $phone, string $status = 'active', $group = null)
+    public function createContact(string $name, string $phone, string $status = 'active', string $group = null): array
     {
         return (new CreateContact(
             $this->url,
@@ -181,10 +179,10 @@ class Base
      * @param  bool  $paginate
      * @param  int  $page
      * @param  int  $quantity
-     * @return mixed
-     * @throws Exception
+     *
+     * @return array
      */
-    public function getContacts(bool $paginate = false, int $page = 1, int $quantity = 10)
+    public function getContacts(bool $paginate = false, int $page = 1, int $quantity = 10): array
     {
         return (new GetContacts(
             $this->url,
@@ -194,13 +192,13 @@ class Base
     }
 
     /**
-     * Get single contact..
+     * Get single contact.
      *
      * @param  int  $id
-     * @return mixed
-     * @throws Exception
+     *
+     * @return array
      */
-    public function getContact(int $id)
+    public function getContact(int $id): array
     {
         return (new GetContact(
             $this->url,
@@ -213,10 +211,10 @@ class Base
      * Destroy a contact.
      *
      * @param  int  $id
-     * @return mixed
-     * @throws Exception
+     *
+     * @return array
      */
-    public function destroyContact(int $id)
+    public function destroyContact(int $id): array
     {
         return (new DestroyContact(
             $this->url,
