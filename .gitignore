@@ -3,3 +3,4 @@
 .env
 .idea
 .run
+.DS_Store

@@ -2,12 +2,11 @@
 
 namespace ZapMeSdk\Traits;
 
-use Exception;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 
 trait PerformRequest
 {
-    use Validate;
-
     /**
      * The default request method.
      *
@@ -21,37 +20,32 @@ trait PerformRequest
      * @param  string  $method
      * @return void
      */
-    private function method(string $method = 'POST')
+    private function method(string $method = 'POST'): void
     {
         $this->method = $method;
     }
 
     /**
-     * Make the request to the ZapMe Api.
+     * Send the request to the ZapMe.
      *
-     * @throws Exception
+     * @param  string  $path
+     * @param  array  $data
+     *
+     * @return array
      */
-    private function request(string $path, array $data = [])
+    private function request(string $path, array $data = []): array
     {
-        $this->validate();
+        $data += ['api'=> $this->api, 'secret' => $this->secret];
 
-        $data += [
-            'api'    => $this->api,
-            'secret' => $this->secret,
-        ];
+        try {
+            $response = (new Client([
+                'base_uri' => $this->url,
+                'timeout'  => 5,
+            ]))->request($this->method, $path, ['form_params' => $data]);
+        } catch (ClientException $exception) {
+            $response = $exception->getResponse();
+        }
 
-        $curl = curl_init($this->url . $path);
-
-        curl_setopt($curl, CURLOPT_POST, true);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $this->method === 'DELETE' ? sprintf('api=%s&secret=%s', $this->api, $this->secret) : $data);
-        curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $this->method);
-
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 0);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, 0);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-
-        $result = curl_exec($curl);
-
-        return json_decode($result, true);
+        return json_decode($response->getBody()->getContents(), true);
     }
 }

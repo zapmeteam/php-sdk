@@ -22,9 +22,15 @@ class SendMessage
     }
 
     /**
-     * @throws Exception
+     * Send the request to the ZapMe.
+     *
+     * @param  string  $phone
+     * @param  string  $message
+     * @param  array  $attachment
+     *
+     * @return array
      */
-    public function __invoke(string $phone, string $message, array $attachment = [])
+    public function __invoke(string $phone, string $message, array $attachment = []): array
     {
         $data = [
             'phone'   => $phone,

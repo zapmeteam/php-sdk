@@ -1,7 +1,7 @@
 <?php
 
 use Dotenv\Dotenv;
-use ZapMeSdk\Base;
+use ZapMeSdk\Base as ZapMeSdk;
 use PHPUnit\Framework\TestCase;
 
 class BaseTest extends TestCase
@@ -16,11 +16,11 @@ class BaseTest extends TestCase
         $api    = getenv('ZAPME_TEST_API');
         $secret = getenv('ZAPME_TEST_SECRET');
 
-        if ($url === false || $api === false || $secret === false) {
-            $this->markTestSkipped('Test environment variables are not set.');
+        if (!$url || !$api || !$secret) {
+            $this->markTestSkipped('Test environment variables are not correctly set.');
         }
 
-        $this->base = (new Base())
+        $this->base = (new ZapMeSdk())
             ->toUrl($url)
             ->withApi($api)
             ->withSecret($secret);
@@ -159,7 +159,7 @@ class BaseTest extends TestCase
     }
 
     /** @test */
-    public function it_should_be_able_to_destry_contact()
+    public function it_should_be_able_to_destroy_contact()
     {
         $faker  = Faker\Factory::create('pt_BR');
 

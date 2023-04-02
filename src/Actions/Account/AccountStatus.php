@@ -22,9 +22,11 @@ class AccountStatus
     }
 
     /**
-     * @throws Exception
+     * Send the request to the ZapMe.
+     *
+     * @return array
      */
-    public function __invoke()
+    public function __invoke(): array
     {
         return $this->request($this->path());
     }
