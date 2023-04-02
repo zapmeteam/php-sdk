@@ -1,8 +1,6 @@
 <?php
 
-/**
- * This file is specific to developers who are just starting to work with the SDK.
- */
+// This file is specific to developers who are just starting to work with the SDK.
 
 ini_set('display_errors', 1);
 
@@ -13,10 +11,6 @@ use ZapMeSdk\Base as ZapMeSdk;
 $base = (new ZapMeSdk())
     ->withApi('YOUR_API_HERE')
     ->withSecret('YOUR_SECRET_KEY_HERE');
-
-/**
- * Example of sending a message:
- */
 
 $result = $base->sendMessage('PHONE', 'MESSAGE');
 

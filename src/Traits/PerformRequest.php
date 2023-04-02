@@ -35,15 +35,13 @@ trait PerformRequest
      */
     private function request(string $path, array $data = []): array
     {
-        $client = new Client([
-            'base_uri' => $this->url,
-            'timeout'  => 5,
-        ]);
-
         $data += ['api'=> $this->api, 'secret' => $this->secret];
 
         try {
-            $response = $client->request($this->method, $path, ['form_params' => $data]);
+            $response = (new Client([
+                'base_uri' => $this->url,
+                'timeout'  => 5,
+            ]))->request($this->method, $path, ['form_params' => $data]);
         } catch (ClientException $exception) {
             $response = $exception->getResponse();
         }
