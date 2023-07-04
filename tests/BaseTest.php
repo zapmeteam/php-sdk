@@ -3,9 +3,14 @@
 use Dotenv\Dotenv;
 use ZapMeSdk\Base as ZapMeSdk;
 use PHPUnit\Framework\TestCase;
+use Faker\Generator;
+use Faker\Factory;
 
 class BaseTest extends TestCase
 {
+    /** @var Generator */
+    protected $faker;
+
     public function setUp(): void
     {
         parent::setUp();
@@ -24,6 +29,8 @@ class BaseTest extends TestCase
             ->toUrl($url)
             ->withApi($api)
             ->withSecret($secret);
+
+        $this->faker = Factory::create('pt_BR');
     }
 
     /** @test */
@@ -90,10 +97,8 @@ class BaseTest extends TestCase
     /** @test */
     public function it_should_be_able_to_create_contact()
     {
-        $faker = Faker\Factory::create('pt_BR');
-
-        $name  = $faker->firstName();
-        $phone = $faker->phoneNumber();
+        $name  = $this->faker->firstName();
+        $phone = $this->faker->phoneNumber();
 
         $result = $this->base->createContact($name, $phone);
 
@@ -110,10 +115,8 @@ class BaseTest extends TestCase
     /** @test */
     public function it_should_be_able_to_create_contact_as_disabled()
     {
-        $faker = Faker\Factory::create('pt_BR');
-
-        $name  = $faker->firstName();
-        $phone =  $faker->phoneNumber();
+        $name = $this->faker->firstName();
+        $phone = $this->faker->phoneNumber();
 
         $result = $this->base->createContact($name, $phone, 'disable');
 
@@ -144,9 +147,7 @@ class BaseTest extends TestCase
     /** @test */
     public function it_should_be_able_to_get_single_contact()
     {
-        $faker = Faker\Factory::create('pt_BR');
-
-        $result = $this->base->createContact($faker->firstName(), $faker->phoneNumber());
+        $result = $this->base->createContact($this->faker->firstName(), $this->faker->phoneNumber());
 
         $single = $this->base->getContact($result['data']['id']);
 
@@ -161,9 +162,7 @@ class BaseTest extends TestCase
     /** @test */
     public function it_should_be_able_to_destroy_contact()
     {
-        $faker  = Faker\Factory::create('pt_BR');
-
-        $contact = $this->base->createContact($faker->firstName(), $faker->phoneNumber());
+        $contact = $this->base->createContact($this->faker->firstName(), $this->faker->phoneNumber());
 
         $result = $this->base->destroyContact($contact['data']['id']);
 

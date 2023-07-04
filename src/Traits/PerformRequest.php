@@ -12,7 +12,7 @@ trait PerformRequest
      *
      * @var string
      */
-    private string $method = 'POST';
+    private $method = 'POST';
 
     /**
      * Handles the request method.
