@@ -2,7 +2,6 @@
 
 namespace ZapMeSdk\Actions\Account;
 
-use Exception;
 use ZapMeSdk\Traits\PerformRequest;
 use ZapMeSdk\Traits\ShareableConstructor;
 
